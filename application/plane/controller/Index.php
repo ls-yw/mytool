@@ -4,25 +4,43 @@ namespace app\plane\controller;
 use think\Controller;
 use app\plane\model\City;
 use think\View;
+use think\Request;
 
 class Index extends Controller
 {
 	public $days = 15;
 	
 	public function index(){
-		
 		$citys = new City();
-		$citylist = $citys->where('suoxie','<>','')->where('city','<>','杭州')->select();
-		$onCity = $citys->where('city','杭州')->find();
-		
-		$data = array();
-		$data['citys'] = json_encode($citylist);
-		$data['oncity'] = json_encode($onCity);
-		
-// 		print_r($citys->city);
-		
 		$view = new View();
-		return $view->fetch('list',$data);
+		
+		if(Request::instance()->isPost()){
+			
+			$acty = Request::instance()->post('acty');
+			if(!$acty)$this->error('出发地不能为空');
+			
+			$citys = new City();
+			$citylist = $citys->where('suoxie','<>','')->where('id','<>',$acty)->select();
+			$onCity = $citys->where('id',$acty)->find();
+			
+			$data = array();
+			$data['citys'] = json_encode($citylist);
+			$data['oncity'] = json_encode($onCity);
+			
+			
+			return $view->fetch('list',$data);
+			
+		}else{
+			
+			$citylist = $citys->where('suoxie','<>','')->select();
+			
+			$data = array();
+			$data['citys'] = $citylist;
+			
+			return $view->fetch('index',$data);
+		}
+		
+		
 		
 	}
 	
