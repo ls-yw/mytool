@@ -105,9 +105,9 @@
     </style>
 </head>
 <body>
-
+<div id="list">
 	<div name="slide" class="tab_main0 list">
-        <div class="other_box">
+        <div class="other_box" style="display:none;">
             <div style="width:250px;height:30px;color:black; font-size:13px; float:left" class="d_a_title"><span class="go"></span><span class="back"></span></div>
         </div>
         <div class="tab_new" name="slideCont">
@@ -115,9 +115,9 @@
         </div>
         <div class="tab_new dis_none" name="slideCont">
             <div id="back" style="width: 540px; height: 137px;"></div>
-        </div>;
+        </div>
     </div>
-
+</div>
 
     <script>
         (function () {
@@ -155,7 +155,7 @@
                         data: '{"dcty":"' + param.dcty + '","acty":"' + param.acty + '","stype":"' + param.stype + '"}',
                         contentType: 'application/json',
                         success: function (data) {
-                            callback && callback(data);
+                            callback && callback(data,param);
                         },
                         error: function () {
 
@@ -181,8 +181,8 @@
                     
                     getChartHtml();
                     
-                    $('.tab_main'+listnum+' .d_a_title .go').text(title);
-                    $('.tab_main'+listnum+' .d_a_title .back').text(backtitle);
+                    /*$('.tab_main'+listnum+' .d_a_title .go').text(title);
+                    $('.tab_main'+listnum+' .d_a_title .back').text(backtitle);*/
                     
                     //document.getElementById('d_a_title').innerHTML = title;
                 },
@@ -197,8 +197,8 @@
                     //goUrl = 'http://openapi.ctrip.com/logicsvr/AjaxServerNew.ashx?datatype=jsonp&callProxyKey=getflightintlandinlandlowestpricesearch&requestJson={"AllianceID": "1","SID": "50","SecretKey": "abcDFG645354","SearchType": ' + SearchType + ', "DepartCityCode": "' + depart + '", "ArriveCityCode": "' + arrive + '", "Flag": 0}&userId=&tmp=1452147311503',
                     //backUrl = 'http://openapi.ctrip.com/logicsvr/AjaxServerNew.ashx?datatype=jsonp&callProxyKey=getflightintlandinlandlowestpricesearch&requestJson={"AllianceID": "1","SID": "50","SecretKey": "abcDFG645354","SearchType": ' + SearchType + ', "DepartCityCode": "' + arrive + '", "ArriveCityCode": "' + depart + '", "Flag": 0}&userId=&tmp=1452147311503';
                     
-                    var goData = { dcty: depart, acty: arrive, stype: SearchType }, //去程传参
-                        backData = { dcty: arrive, acty: depart, stype: SearchType }; //返程传参
+                    var goData = { dcty: depart, acty: arrive,dname: dname, aname: aname, stype: SearchType }, //去程传参
+                        backData = { dcty: arrive, acty: depart,dname: dname, aname: aname, stype: SearchType }; //返程传参
                     
                     _this._ajax(goData, echartInit);
                     //tools._loadJS(goUrl, echartInit);
@@ -244,7 +244,7 @@
             $("div[name='slide']").tabControl("*[name='slideTag'] a", "*[name='slideCont']", '.more');
 
             //去程
-            function echartInit(obj) {
+            function echartInit(obj,param) {
                 var data = [], price = [], priceList = [], datas = {}, count=0, index=0;
                 if(obj.prices.length == 0)return false;
                 priceList = obj.prices.slice(0, 30);
@@ -302,7 +302,7 @@
                                 },
                                 {
                                     type: 'min', name: '最小值',
-                                    symbolSize: 1,
+                                    symbolSize: 2,
                                     label: {
                                         normal: {
                                             show: true,
@@ -311,7 +311,7 @@
                                             },
                                             position: 'bottom',
                                             formatter: function (a, b, c) {
-                                                return "￥" + a.value + "         ";
+                                                return "￥" + a.value ;
                                             }
                                         }
                                     }
@@ -324,107 +324,6 @@
                 if (price[0].value == max || price[1].value == max || price[29].value == min || price[28].value == min) {//1max/30min，最大值放在右边
                     goMarkdata[0].label.position = "insideTopLeft";
                     goMarkdata[1].label.position = "insideBottomRight";
-                };
-                option = {
-                    grid: {
-                        top: 25,
-                        left: 10,
-                        bottom: 20
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-                        backgroundColor: '#FFFFFF',  //提示框背景色
-                        borderColor: '#B8B8B8',
-                        borderWidth: 1,
-                        formatter: function (params, ticket, callback) {
-                            if (params[0]) {
-                                var mydate = new Date();
-                                var dd = mydate.getFullYear() + "-" + params[0].name;
-                                var title = dd + " " + tools._dataConverWeek(dd) + " <br>当前价：￥<span class='red'>" + params[0].value + "</span>";
-                            }
-                            return title;
-
-                        },
-                        textStyle: {
-                            color: '#696969'
-                        },
-                        padding: 3,
-                        axisPointer: {
-                            lineStyle: {
-                                color: '#ACACAC',
-                                height: 1,
-                                type: 'dotted'
-                            }
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: data,
-                        axisLine: {
-                            show: true,
-                            lineStyle: {
-                                width: 4,
-                                color: '#f0f0f0',
-                                type: 'solid'
-                            }
-                        },
-                        axisLabel: {
-                            show: true,
-                            interval: 7,
-                            margin: 5,
-                            textStyle: {
-                                color: '#666'
-                            }
-                        },
-                        axisTick: {
-                            show: true,
-                            lineStyle: {
-                                color: '#e6e6e6'
-                            }
-                        },
-                        splitLine: {
-                            show: false
-                        }
-                    },
-                    yAxis: {
-                        type: 'value',
-                        position: 'right',
-                        splitNumber: 3,
-                        axisLabel: {
-                            formatter: '￥{value}'
-                        },
-                        axisLine: {
-                            show: false
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: ['#f0f0f0']
-                            }
-                        }
-                    }//,
-                    /*series: [
-                        {
-                            type: 'line',
-                            smooth: true,
-                            symbol: 'circle',
-                            showAllSymbol: true,
-                            data: price,
-                            markPoint: {
-                                data: goMarkdata
-                            },
-                            itemStyle: {
-                                normal: {
-                                    borderWidth: 1,
-                                    color: '#378bff',
-                                },
-                            }
-                        }
-                    ]*/
                 };
                 if (priceList[0].price == 0) {
                     option.tooltip.formatter = function (params, ticket, callback) {
@@ -451,7 +350,7 @@
             };
 
             //返程
-            function echartBackInit(obj) {
+            function echartBackInit(obj,param) {
                 var data = [], price = [], priceList = [], datas = {}, sort = [], count = 0, index=0;
                 if(obj.prices.length == 0){
                 	$('.tab_main'+listnum).remove();
@@ -547,11 +446,17 @@
                         borderColor: '#B8B8B8',
                         borderWidth: 1,
                         formatter: function (params, ticket, callback) {
-                            if (params[0]) {
-                                var mydate = new Date();
-                                var dd = mydate.getFullYear() + "-" + params[0].name;
-                                var title = dd + " " + tools._dataConverWeek(dd) + " <br>当前价：￥<span class='red'>" + params[0].value + "</span>";
-                            }
+                        	var mydate = new Date();
+                            var dd = mydate.getFullYear() + "-" + params[0].name;
+                            var title = dd + " " + tools._dataConverWeek(dd)
+                        	for(var i=0;i<params.length;i++){
+                        		if (params[i].value == 0) {
+                                    title += " <br><span>今日已无航班</span>";
+                                } else {
+                                    title += " <br>"+params[i].seriesName+"：￥<span class='red'>" + params[i].value + "</span>";
+                                }
+                        	}
+                            
                             return title;
                         },
                         textStyle: {
@@ -566,6 +471,9 @@
                                 type: 'dotted'
                             }
                         }
+                    },
+                    legend: {
+                        data:[param.dname+'-'+param.aname,param.aname+'-'+param.dname]
                     },
                     xAxis: {
                         type: 'category',
@@ -617,24 +525,6 @@
                             }
                         }
                     }//,
-                    /*series: [
-                        {
-                            type: 'line',
-                            smooth: true,
-                            symbol: 'circle',
-                            showAllSymbol: true,
-                            data: price,
-                            markPoint: {
-                                data: backMarkdata
-                            },
-                            itemStyle: {
-                                normal: {
-                                    borderWidth: 1,
-                                    color: '#378bff',
-                                }
-                            }
-                        }
-                    ]*/
                 };
                 if (priceList[0].price == 0) {
                     option.tooltip.formatter = function (params, ticket, callback) {
@@ -653,6 +543,7 @@
                 option.series = [
 {
     type: 'line',
+    name:param.dname+'-'+param.aname,
     smooth: true,
     symbol: 'circle',
     showAllSymbol: true,
@@ -670,6 +561,7 @@
 
 {
     type: 'line',
+    name:param.aname+'-'+param.dname,
     smooth: true,
     symbol: 'circle',
     showAllSymbol: true,
@@ -736,7 +628,7 @@
                 '<div id="back'+listnum+'" style="width: 540px; height: 137px;"></div>'+
             '</div>'+
         '</div>';
-        $('body').append(html);
+        $('#list').append(html);
     }
             
             
