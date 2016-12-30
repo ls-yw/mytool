@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的工具</title>
+{css href="/static/css/bootstrap.min.css"}
+{css href="/static/css/common.css"}
+</head>
+<body>
+<div class="container">
+
+  <div class="content" style="margin-top:50px;">
+  		
+  	  <div class="row">
+	  	<div class="col-md-2 list-title">编码转化：</div>
+	  	<div class="col-md-10">
+	  		<ul class="list-inline">
+			  <li><a href="{:url('jscoding/endecode/gotime')}">时间戳转换</a></li>
+			</ul>
+			<hr/>
+	  	</div>
+	  </div>
+  		
+	  <div class="row">
+	  	<div class="col-md-2 list-title">交通查询：</div>
+	  	<div class="col-md-10">
+	  		<ul class="list-inline">
+			  <li><a href="{:url('plane/index/index')}">机票查询</a></li>
+			</ul>
+			<hr/>
+	  	</div>
+	  </div>
+  </div>
+</div>
+
+
+{js href="/static/js/bootstrap.min.js"}
+</body>
+</html>

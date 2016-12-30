@@ -2,7 +2,7 @@
 namespace app\plane\controller;
 
 use think\Controller;
-use app\plane\model\City;
+use app\common\model\City;
 use think\View;
 use think\Request;
 
@@ -44,7 +44,7 @@ class Index extends Controller
 		
 	}
 	
-	public function getPricePlane($acty,$dcty){
+	/*public function getPricePlane($acty,$dcty){
 		if($acty == $dcty)return fasle;
 		
 		$url = config('get_price_url');
@@ -94,7 +94,7 @@ class Index extends Controller
 			}
 		}
 		return $data;
-	}
+	}*/
 	
 	
 }

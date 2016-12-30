@@ -1,5 +1,5 @@
 <?php
-namespace app\plane\model;
+namespace app\common\model;
 
 use think\Model;
 
