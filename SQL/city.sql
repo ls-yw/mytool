@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : mysql
-Source Server Version : 50505
+Source Server Version : 50714
 Source Host           : 127.0.0.1:3306
-Source Database       : host
+Source Database       : mytool
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2016-08-29 20:40:24
+Date: 2017-03-24 17:45:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,6 @@ INSERT INTO `city` VALUES ('12', '武汉', 'WUH');
 INSERT INTO `city` VALUES ('13', '安庆', 'AQG');
 INSERT INTO `city` VALUES ('14', '鞍山', 'AOG');
 INSERT INTO `city` VALUES ('15', '安阳', '');
-INSERT INTO `city` VALUES ('16', '北京', 'BJS');
 INSERT INTO `city` VALUES ('17', '宝鸡', '');
 INSERT INTO `city` VALUES ('18', '包头', 'BAV');
 INSERT INTO `city` VALUES ('19', '蚌埠', '');
@@ -54,7 +53,6 @@ INSERT INTO `city` VALUES ('22', '亳州', '');
 INSERT INTO `city` VALUES ('23', '本溪', '');
 INSERT INTO `city` VALUES ('24', '滨州', '');
 INSERT INTO `city` VALUES ('25', '重庆', 'CKG');
-INSERT INTO `city` VALUES ('26', '成都', 'CTU');
 INSERT INTO `city` VALUES ('27', '长治', 'CIH');
 INSERT INTO `city` VALUES ('28', '长春', 'CGQ');
 INSERT INTO `city` VALUES ('29', '常德', 'CGD');
@@ -88,14 +86,12 @@ INSERT INTO `city` VALUES ('56', '阜阳', 'FUG');
 INSERT INTO `city` VALUES ('57', '福州', 'FOC');
 INSERT INTO `city` VALUES ('58', '防城港', '');
 INSERT INTO `city` VALUES ('59', '抚州', '');
-INSERT INTO `city` VALUES ('60', '广州', 'CAN');
 INSERT INTO `city` VALUES ('61', '桂林', 'KWL');
 INSERT INTO `city` VALUES ('62', '贵阳', 'KWE');
 INSERT INTO `city` VALUES ('63', '广元', 'GYS');
 INSERT INTO `city` VALUES ('64', '赣州', 'KOW');
 INSERT INTO `city` VALUES ('65', '贵港', '');
 INSERT INTO `city` VALUES ('66', '哈尔滨', 'HRB');
-INSERT INTO `city` VALUES ('67', '杭州', 'HGH');
 INSERT INTO `city` VALUES ('68', '黄山', 'TXN');
 INSERT INTO `city` VALUES ('69', '海口', 'HAK');
 INSERT INTO `city` VALUES ('70', '湖州', '');
@@ -166,7 +162,6 @@ INSERT INTO `city` VALUES ('134', '牡丹江', 'MDG');
 INSERT INTO `city` VALUES ('135', '绵阳', 'MIG');
 INSERT INTO `city` VALUES ('136', '眉山', '');
 INSERT INTO `city` VALUES ('137', '梅州', '');
-INSERT INTO `city` VALUES ('138', '南京', 'NKG');
 INSERT INTO `city` VALUES ('139', '南通', 'NTG');
 INSERT INTO `city` VALUES ('140', '宁波', 'NGB');
 INSERT INTO `city` VALUES ('141', '南昌', 'KHN');
@@ -182,7 +177,6 @@ INSERT INTO `city` VALUES ('150', '攀枝花', 'PZI');
 INSERT INTO `city` VALUES ('151', '濮阳', '');
 INSERT INTO `city` VALUES ('152', '萍乡', '');
 INSERT INTO `city` VALUES ('153', '平顶山', '');
-INSERT INTO `city` VALUES ('154', '青岛', 'TAO');
 INSERT INTO `city` VALUES ('155', '秦皇岛', 'SHP');
 INSERT INTO `city` VALUES ('156', '齐齐哈尔', 'NDG');
 INSERT INTO `city` VALUES ('157', '泉州', '');
@@ -191,10 +185,8 @@ INSERT INTO `city` VALUES ('159', '曲靖', '');
 INSERT INTO `city` VALUES ('160', '清远', '');
 INSERT INTO `city` VALUES ('161', '钦州', '');
 INSERT INTO `city` VALUES ('162', '日照', '');
-INSERT INTO `city` VALUES ('163', '上海', 'SHA');
 INSERT INTO `city` VALUES ('164', '苏州', '');
 INSERT INTO `city` VALUES ('165', '绍兴', '');
-INSERT INTO `city` VALUES ('166', '深圳', 'SZX');
 INSERT INTO `city` VALUES ('167', '三亚', 'SYX');
 INSERT INTO `city` VALUES ('168', '上饶', '');
 INSERT INTO `city` VALUES ('169', '韶关', '');
@@ -204,7 +196,6 @@ INSERT INTO `city` VALUES ('172', '三明', '');
 INSERT INTO `city` VALUES ('173', '四平', '');
 INSERT INTO `city` VALUES ('174', '商丘', '');
 INSERT INTO `city` VALUES ('175', '汕头', 'SWA');
-INSERT INTO `city` VALUES ('176', '沈阳', 'SHE');
 INSERT INTO `city` VALUES ('177', '十堰', '');
 INSERT INTO `city` VALUES ('178', '宿州', '');
 INSERT INTO `city` VALUES ('179', '邵阳', '');
@@ -215,7 +206,6 @@ INSERT INTO `city` VALUES ('183', '遂宁', '');
 INSERT INTO `city` VALUES ('184', '汕尾', '');
 INSERT INTO `city` VALUES ('185', '宿迁', '');
 INSERT INTO `city` VALUES ('186', '石嘴山', '');
-INSERT INTO `city` VALUES ('187', '天津', 'TSN');
 INSERT INTO `city` VALUES ('188', '太原', 'TYN');
 INSERT INTO `city` VALUES ('189', '泰安', '');
 INSERT INTO `city` VALUES ('190', '通化', 'TNH');
@@ -227,7 +217,6 @@ INSERT INTO `city` VALUES ('195', '铁岭', '');
 INSERT INTO `city` VALUES ('196', '无锡', 'WUX');
 INSERT INTO `city` VALUES ('197', '乌鲁木齐', 'URC');
 INSERT INTO `city` VALUES ('198', '潍坊', 'WEF');
-INSERT INTO `city` VALUES ('199', '武汉', 'WUH');
 INSERT INTO `city` VALUES ('200', '芜湖', '');
 INSERT INTO `city` VALUES ('201', '威海', 'WEH');
 INSERT INTO `city` VALUES ('202', '万州', 'WXN');
@@ -235,7 +224,6 @@ INSERT INTO `city` VALUES ('203', '温州', 'WNZ');
 INSERT INTO `city` VALUES ('204', '梧州', 'WUZ');
 INSERT INTO `city` VALUES ('205', '渭南', '');
 INSERT INTO `city` VALUES ('206', '西安', 'SIA');
-INSERT INTO `city` VALUES ('207', '厦门', 'XMN');
 INSERT INTO `city` VALUES ('208', '西双版纳', 'JHG');
 INSERT INTO `city` VALUES ('209', '咸阳', '');
 INSERT INTO `city` VALUES ('210', '西宁', 'XNN');
