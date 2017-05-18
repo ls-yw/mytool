@@ -15,18 +15,25 @@ class Index extends Controller
 		$view = new View();
 		
 		if(Request::instance()->isPost()){
-			
+		    
 			$acty = Request::instance()->post('acty');
+			$dcty = $_POST['dcty'];
 			if(!$acty)$this->error('出发地不能为空');
 			
+			if($acty == $dcty[0] && count($dcty) == 1)$this->error('出发地和目的地不能相同');
+			
 			$citys = new City();
-			$citylist = $citys->where('suoxie','<>','')->where('id','<>',$acty)->select();
+			$query = $citys->where('suoxie','<>','')->where('id','<>',$acty);
+			if(!empty($dcty)){
+			    $query->where('id','in',$dcty);
+			}
+			
+			$citylist = $query->select();
 			$onCity = $citys->where('id',$acty)->find();
 			
 			$data = array();
 			$data['citys'] = json_encode($citylist);
 			$data['oncity'] = json_encode($onCity);
-			
 			
 			return $view->fetch('list',$data);
 			

@@ -149,18 +149,20 @@
                     }
                 },
                 _ajax: function (param, callback) {
-                    jQuery.ajax({
-                        type: 'post',
-                        url: '//m.ctrip.com/restapi/soa2/10400/json/FlightIntlAndInlandLowestPriceSearch',
-                        data: '{"dcty":"' + param.dcty + '","acty":"' + param.acty + '","stype":"' + param.stype + '"}',
-                        contentType: 'application/json',
-                        success: function (data) {
-                            callback && callback(data,param);
-                        },
-                        error: function () {
+                	if(param){
+                		jQuery.ajax({
+                            type: 'post',
+                            url: '//m.ctrip.com/restapi/soa2/10400/json/FlightIntlAndInlandLowestPriceSearch',
+                            data: '{"dcty":"' + param.dcty + '","acty":"' + param.acty + '","stype":"' + param.stype + '"}',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                callback && callback(data,param);
+                            },
+                            error: function () {
 
-                        }
-                    })
+                            }
+                        })
+                	}
                 },
                 _getQuery: function (name) {
                     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -199,7 +201,6 @@
                     
                     var goData = { dcty: depart, acty: arrive,dname: dname, aname: aname, stype: SearchType }, //去程传参
                         backData = { dcty: arrive, acty: depart,dname: dname, aname: aname, stype: SearchType }; //返程传参
-                    
                     _this._ajax(goData, echartInit);
                     //tools._loadJS(goUrl, echartInit);
                     // setTimeOut
@@ -211,7 +212,7 @@
             }
 
             //扩展jq组件
-            $.fn.extend({
+            /*$.fn.extend({
                 //选项卡
                 tabControl: function (tab, con, mor) {
                     $(this).each(function () {
@@ -241,7 +242,7 @@
                     });
                 }
             });
-            $("div[name='slide']").tabControl("*[name='slideTag'] a", "*[name='slideCont']", '.more');
+            $("div[name='slide']").tabControl("*[name='slideTag'] a", "*[name='slideCont']", '.more');*/
 
             //去程
             function echartInit(obj,param) {
@@ -352,6 +353,9 @@
             //返程
             function echartBackInit(obj,param) {
                 var data = [], price = [], priceList = [], datas = {}, sort = [], count = 0, index=0;
+                if(param.dcty == 'SHA'){
+                	console.log(obj);
+                }
                 if(obj.prices.length == 0){
                 	$('.tab_main'+listnum).remove();
                 	listnum = listnum + 1;
@@ -541,48 +545,48 @@
                     }
                 };
                 option.series = [
-{
-    type: 'line',
-    name:param.dname+'-'+param.aname,
-    smooth: true,
-    symbol: 'circle',
-    showAllSymbol: true,
-    data: goPrice,
-    markPoint: {
-        data: goMarkdata
-    },
-    itemStyle: {
-        normal: {
-            borderWidth: 1,
-            color: '#378bff',
-        },
-    }
-},
-
-{
-    type: 'line',
-    name:param.aname+'-'+param.dname,
-    smooth: true,
-    symbol: 'circle',
-    showAllSymbol: true,
-    data: price,
-    markPoint: {
-        data: backMarkdata
-    },
-    itemStyle: {
-        normal: {
-            borderWidth: 1,
-            color: 'green',
-        }
-    }
-}
-                                ]
+					{
+					    type: 'line',
+					    name:param.dname+'-'+param.aname,
+					    smooth: true,
+					    symbol: 'circle',
+					    showAllSymbol: true,
+					    data: goPrice,
+					    markPoint: {
+					        data: goMarkdata
+					    },
+					    itemStyle: {
+					        normal: {
+					            borderWidth: 1,
+					            color: '#378bff',
+					        },
+					    }
+					},
+					
+					{
+					    type: 'line',
+					    name:param.aname+'-'+param.dname,
+					    smooth: true,
+					    symbol: 'circle',
+					    showAllSymbol: true,
+					    data: price,
+					    markPoint: {
+					        data: backMarkdata
+					    },
+					    itemStyle: {
+					        normal: {
+					            borderWidth: 1,
+					            color: 'green',
+					        }
+					    }
+					}
+                 ]
 
                 echart.setOption(option);
                 listnum = listnum + 1;
                 //if(!cityData[listnum])clearInterval(inittime);
                 console.log(listnum);
-                console.log(cityData[listnum]);
+                //console.log(cityData[listnum]);
                 if(cityData[listnum]){
                 	tools._initCity();
                 }
