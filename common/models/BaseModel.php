@@ -13,12 +13,14 @@ class BaseModel extends ActiveRecord
     protected static function _dealWhere($obj, $where)
     {
         if(!empty($where)){
-            if(is_array($where) && isset($where[0]) && is_array($where[0])){
-                foreach ($where as $key => $value) {
-                    ($key == 0) ? $obj->where($value) : $obj->andWhere($value);
+            $i = 0;
+            foreach ($where as $key => $value) {
+                if(is_array($value) && is_numeric($key)){
+                    ($i == 0) ? $obj->where($value) : $obj->andWhere($value);
+                }else{
+                    ($i == 0) ? $obj->where([$key=>$value]) : $obj->andWhere([$key=>$value]);
                 }
-            }else{
-                $obj->where($where);
+                $i++;
             }
         }
     }

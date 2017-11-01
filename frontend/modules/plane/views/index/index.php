@@ -7,30 +7,13 @@ use yii\bootstrap\Alert;
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/assets/plugs/chosen/chosen.css" rel="stylesheet">
+<link href="/assets/plugs/toastr/toastr.css" rel="stylesheet">
 <link href="/assets/plugs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <style>
 .content{margin:0 auto;width:500px;margin-top:300px;}
 </style>
 </head>
 <body>
-<?php 
-if( Yii::$app->getSession()->hasFlash('success') ) {
-    echo Alert::widget([
-        'options' => [
-            'class' => 'alert-success', //这里是提示框的class
-        ],
-        'body' => Yii::$app->getSession()->getFlash('success'), //消息体
-    ]);
-}
-if( Yii::$app->getSession()->hasFlash('error') ) {
-    echo Alert::widget([
-        'options' => [
-            'class' => 'alert-error',
-        ],
-        'body' => Yii::$app->getSession()->getFlash('error'),
-    ]);
-}
-?>
 <form method="post" action="" id="form1">
 <div class="content">
 	<span>出发地：</span>
@@ -51,13 +34,29 @@ if( Yii::$app->getSession()->hasFlash('error') ) {
 	<button type="submit">查询</button>
 </div>
 </form>
+<?php 
 
+$a = Yii::$app->getSession()->hasFlash('error');
+?>
 <script type="text/javascript" src="/assets/plugs/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/assets/plugs/chosen/chosen.jquery.js"></script>
+<script type="text/javascript" src="/assets/plugs/toastr/toastr.min.js"></script>
 <script type="text/javascript">
 if($.isFunction($('select.chosen').chosen)){
 	initChosen();
 }
+
+$(function () {  
+	<?php 
+		if( Yii::$app->getSession()->hasFlash('success') ) {
+		    echo "toastr.error('".Yii::$app->getSession()->getFlash('success')."')";
+		}
+		if( Yii::$app->getSession()->hasFlash('error') ) {
+		    echo "toastr.error('".Yii::$app->getSession()->getFlash('error')."')";
+		}
+	?>
+})  
+
 function initChosen(){
 	$('select.chosen').each(function(){
 		var options = {};

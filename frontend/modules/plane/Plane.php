@@ -1,8 +1,9 @@
 <?php
-
 namespace frontend\modules\plane;
 
-class Plane extends \yii\base\Module
+use yii\base\Module;
+
+class Plane extends Module
 {
     public $controllerNamespace = 'frontend\modules\plane\controllers';
 

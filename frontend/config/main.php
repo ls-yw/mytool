@@ -41,11 +41,7 @@ return [
             'charset' => 'utf8',
         ],
     ],
-    'modules' => [
-        'plane' => [
-            'class' => 'frontend\modules\plane\Plane',
-        ],
-    ],
+    'modules' => require(__DIR__ . '/modules.php'),
     'defaultRoute' => 'index',
     'language'=>'zh-CN',
     'params' => $params,
