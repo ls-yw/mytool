@@ -31,13 +31,7 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
         ],
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=mytool;',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-        ],
+        'db' => require_once __DIR__.'database.php',
         'request' => [
             'cookieValidationKey' => 'sdafdsfds545#$@$^#$SDFDSfsfasfs',
         ],
