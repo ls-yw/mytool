@@ -31,7 +31,7 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
         ],
-        'db' => require_once __DIR__.'database.php',
+        'db' => require_once __DIR__.'/database.php',
         'request' => [
             'cookieValidationKey' => 'sdafdsfds545#$@$^#$SDFDSfsfasfs',
         ],
