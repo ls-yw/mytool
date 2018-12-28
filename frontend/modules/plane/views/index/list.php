@@ -150,13 +150,27 @@
                 },
                 _ajax: function (param, callback) {
                 	if(param){
+                		var date = this._formatDate(new Date(),'YYYY-MM-DD');
+                        var endData = this._getNextMonth(date);
+
+                		var rdata = {
+                                "head": {},
+                                "stype": parseInt(param.stype),
+                                "dcty": param.dcty.toUpperCase(),
+                                "acty": param.acty.toUpperCase(),
+                                "start": "",
+                                "end": endData,
+                                "flag": 1
+                            };
+                        console.log(rdata);		
+                    	
                 		jQuery.ajax({
                             type: 'post',
-                            url: '//m.ctrip.com/restapi/soa2/10400/json/FlightIntlAndInlandLowestPriceSearch',
-                            data: '{"dcty":"' + param.dcty + '","acty":"' + param.acty + '","stype":"' + param.stype + '"}',
-                            contentType: 'application/json',
+                            contentType: 'application/json; charset=utf-8',
+                            url: 'https://sec-m.ctrip.com/restapi/soa2/13516/lowPriceCalendar',
+                            data: JSON.stringify(rdata),
                             success: function (data) {
-                                callback && callback(data,param);
+                                callback && callback(data, param);
                             },
                             error: function () {
 
@@ -194,6 +208,55 @@
                     var myDate = new Date(Date.parse(dateStr.replace(/-/g, "/")));
                     return weekDay[myDate.getDay()];
                 },
+                //下1个月
+                _getNextMonth:function(date) {
+                    var arr = date.split('-');
+                    var year = arr[0]; //获取当前日期的年份
+                    var month = arr[1]; //获取当前日期的月份
+                    var day = arr[2]; //获取当前日期的日
+                    var days = new Date(year, month, 0);
+                    days = days.getDate(); //获取当前日期中的月的天数
+                    var year2 = year;
+                    var month2 = parseInt(month) + 1;
+                    if (month2 == 13) {
+                        year2 = parseInt(year2) + 1;
+                        month2 = 1;
+                    }
+                    var day2 = day;
+                    var days2 = new Date(year2, month2, 0);
+                    days2 = days2.getDate();
+                    if (day2 > days2) {
+                        day2 = days2;
+                    }
+                    if (month2 < 10) {
+                        month2 = '0' + month2;
+                    }
+                
+                    var t2 = year2 + '-' + month2 + '-' + day2;
+                    return t2;
+                },
+                _formatDate: function(date, template) {
+                    var result;
+
+                    var YYYY = '0000' + date.getFullYear();
+                    var MM = '00' + (date.getMonth() + 1);
+                    var DD = '00' + date.getDate();
+
+                    YYYY = YYYY.substring(YYYY.length - 4);
+                    MM = MM.substring(MM.length - 2);
+                    DD = DD.substring(DD.length - 2);
+
+                    if (!template) {
+                        result = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate() + " " + (date.getUTCHours() < 10 ? "0" + date.getUTCHours() : date.getUTCHours()) + ":" + (date.getUTCMinutes() < 10 ? "0" + date.getUTCMinutes() : date.getUTCMinutes()) + ":" + (date.getUTCSeconds() < 10 ? "0" + date.getUTCSeconds() : date.getUTCSeconds());
+                    } else {
+                        result = template;
+                        result = result.replace("YYYY", YYYY);
+                        result = result.replace("MM", MM);
+                        result = result.replace("DD", DD);
+                    }
+                    return result;
+                },
+                
                 _getData: function (depart, arrive, dname, aname, SearchType) {
                     var _this = this;
                     //goUrl = 'http://openapi.ctrip.com/logicsvr/AjaxServerNew.ashx?datatype=jsonp&callProxyKey=getflightintlandinlandlowestpricesearch&requestJson={"AllianceID": "1","SID": "50","SecretKey": "abcDFG645354","SearchType": ' + SearchType + ', "DepartCityCode": "' + depart + '", "ArriveCityCode": "' + arrive + '", "Flag": 0}&userId=&tmp=1452147311503',
@@ -207,7 +270,7 @@
                     setTimeout(function () {
                         //tools._loadJS(backUrl, echartBackInit);
                         _this._ajax(backData, echartBackInit);
-                    }, 3000)
+                    }, 2000)
                 }
             }
 
@@ -247,7 +310,8 @@
             //去程
             function echartInit(obj,param) {
                 var data = [], price = [], priceList = [], datas = {}, count=0, index=0;
-                if(obj.prices.length == 0)return false;
+                console.log(obj.prices);
+                if(obj.prices == null || obj.prices.length == 0)return false;
                 priceList = obj.prices.slice(0, 30);
                 var max = priceList[0].price, min = max;
                 for (var i = 0; i < priceList.length; i++) {
@@ -356,7 +420,7 @@
                 if(param.dcty == 'SHA'){
                 	console.log(obj);
                 }
-                if(obj.prices.length == 0){
+                if(obj.prices == null || obj.prices.length == 0){
                 	$('.tab_main'+listnum).remove();
                 	listnum = listnum + 1;
                 	console.log(listnum);
@@ -624,7 +688,7 @@
     	if($('.tab_main'+listnum).length > 0)return true;
     	var prevnum = listnum - 1;
     	var html = '<div name="slide" class="tab_main'+listnum+' list">'+
-            '<div class="other_box">'+
+            '<div class="other_box" style="display:none;">'+
                 '<div style="width:250px;height:30px;color:black; font-size:13px; float:left" class="d_a_title"><span class="go"></span><span class="back"></span></div>'+
             '</div>'+
             '<div class="tab_new" name="slideCont">'+
