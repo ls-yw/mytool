@@ -46,4 +46,5 @@ return [
     'defaultRoute' => 'index',
     'language'=>'zh-CN',
     'params' => $params,
+    'runtimePath' => '/data/logs/mytool',
 ];
