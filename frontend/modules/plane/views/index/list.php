@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>曲线图</title>
-    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/echarts.js"></script>
-    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/require.js"></script>
-    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/jquery-1.4.2.min.js"></script>
+    <link href="/assets/plugs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <style>
         /* CSS Document */
         body {
@@ -101,24 +99,23 @@
         }
         .d_a_title .go{border-bottom:2px solid #378bff}
         .d_a_title .back{border-bottom:2px solid green;margin-left:10px;}
-        .list{border-bottom:1px dashed #ccc;display: inline-block;margin-left: 20px;}
+        .list{border-bottom:1px dashed #ccc;margin-bottom:5px;}
     </style>
 </head>
 <body>
-<div id="list">
-	<div name="slide" class="tab_main0 list">
-        <div class="other_box" style="display:none;">
-            <div style="width:250px;height:30px;color:black; font-size:13px; float:left" class="d_a_title"><span class="go"></span><span class="back"></span></div>
-        </div>
+<div id="list" class="row">
+	<div name="slide" class="tab_main0 list col-md-4">
         <div class="tab_new" name="slideCont">
-            <div id="go0" style="width: 540px; height: 137px;"></div>
+            <div id="go0" style="width: auto; height: 137px;"></div>
         </div>
         <div class="tab_new dis_none" name="slideCont">
-            <div id="back" style="width: 540px; height: 137px;"></div>
+            <div id="back" style="width: auto; height: 137px;"></div>
         </div>
     </div>
 </div>
-
+	<script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/echarts.js"></script>
+    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/require.js"></script>
+    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/jquery-1.4.2.min.js"></script>
     <script>
         (function () {
         	var goMarkData = '';
@@ -687,15 +684,12 @@
     function getChartHtml(){
     	if($('.tab_main'+listnum).length > 0)return true;
     	var prevnum = listnum - 1;
-    	var html = '<div name="slide" class="tab_main'+listnum+' list">'+
-            '<div class="other_box" style="display:none;">'+
-                '<div style="width:250px;height:30px;color:black; font-size:13px; float:left" class="d_a_title"><span class="go"></span><span class="back"></span></div>'+
-            '</div>'+
+    	var html = '<div name="slide" class="tab_main'+listnum+' list  list col-md-4">'+
             '<div class="tab_new" name="slideCont">'+
-                '<div id="go'+listnum+'" style="width: 540px; height: 137px;"></div>'+
+                '<div id="go'+listnum+'" style="width: 100%; height: 137px;"></div>'+
             '</div>'+
             '<div class="tab_new dis_none" name="slideCont">'+
-                '<div id="back'+listnum+'" style="width: 540px; height: 137px;"></div>'+
+                '<div id="back'+listnum+'" style="width:  100%; height: 137px;"></div>'+
             '</div>'+
         '</div>';
         $('#list').append(html);

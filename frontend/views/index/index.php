@@ -5,6 +5,7 @@ use yii\helpers\Url;
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>我的工具</title>
 <link href="/assets/plugs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
@@ -34,6 +35,7 @@ use yii\helpers\Url;
 	  </div>
   </div>
 </div>
-<script type="text/javascript" src="/assets/plugs/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/assets/plugs/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/plugs/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

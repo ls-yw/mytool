@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>时间转换</title>
 <link href="/assets/plugs/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -21,12 +22,16 @@
 	  <div class="panel-body">
 	    <div class="row text-center bj-ts">
 	    	<div class="col-md-3">时间戳 → 北京时间</div>
-	    	<div class="col-md-9"><input type="text" class="time_timestamp" style="width:200px;" value=""> <a href="javascript:" class="btn btn-info btn-sm zhuan">转换</a> <input type="text" class="time_bj" style="width:200px;" value="" autocomplete="off"></div>
+	    	<div class="col-md-9">
+	    		<input type="text" class="time_timestamp" style="width:150px;" value=""> 
+	    		<a href="javascript:" class="btn btn-info btn-sm zhuan" style="margin: 5px 100px;">转换</a> 
+	    		<input type="text" class="time_bj" style="width:150px;" value="" autocomplete="off">
+	    	</div>
 	    </div>
 	    <hr>
 	    <div class="row text-center ts-bj">
 	    	<div class="col-md-3">北京时间 ← 时间戳</div>
-	    	<div class="col-md-9"><input type="text" class="time_bj" style="width:200px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="" autocomplete="off"> <a href="javascript:" class="btn btn-info btn-sm zhuan">转换</a> <input type="text" class="time_timestamp" style="width:200px;" value="" autocomplete="off"></div>
+	    	<div class="col-md-9"><input type="text" class="time_bj" style="width:150px;" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="" autocomplete="off"> <a href="javascript:" class="btn btn-info btn-sm zhuan" style="margin: 5px 100px;">转换</a> <input type="text" class="time_timestamp" style="width:150px;" value="" autocomplete="off"></div>
 	    </div>
 	  </div>
 	</div>
@@ -35,6 +40,7 @@
 <script type="text/javascript" src="/assets/plugs/wdatepicker/WdatePicker.js"></script>
 <script type="text/javascript">
 $(function(){
+	getTimestamp();
 	var inter = setInterval('getTimestamp()',1000);
 	$('#start').click(function(){getTimestamp();inter = setInterval('getTimestamp()',1000)});
 	$('#stop').click(function(){window.clearInterval(inter)});
