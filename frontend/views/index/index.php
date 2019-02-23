@@ -23,6 +23,16 @@ use yii\helpers\Url;
 			<hr/>
 	  	</div>
 	  </div>
+	  
+	  <div class="row">
+	  	<div class="col-md-2 list-title">加密解密：</div>
+	  	<div class="col-md-10">
+	  		<ul class="list-inline">
+			  <li><a href="<?php echo Url::to(['jscoding/endecode/create-pwd'])?>">生成密码</a></li>
+			</ul>
+			<hr/>
+	  	</div>
+	  </div>
   		
 	  <div class="row">
 	  	<div class="col-md-2 list-title">交通查询：</div>
