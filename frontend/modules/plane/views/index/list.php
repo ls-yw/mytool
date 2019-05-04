@@ -113,9 +113,9 @@
         </div>
     </div>
 </div>
-	<script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/echarts.js"></script>
-    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/require.js"></script>
-    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/src/jquery-1.4.2.min.js"></script>
+	<script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/webView/appChannel/js/echarts.js"></script>
+    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/webView/appChannel/js/require.js"></script>
+    <script src="https://m.ctrip.com/webapp/mkt/app-channel-statistics/webView/appChannel/js/jquery-1.4.2.min.js"></script>
     <script>
         (function () {
         	var goMarkData = '';
