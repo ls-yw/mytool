@@ -7,6 +7,9 @@ export const codeRouter = [
     {
         path: '/code/timeConvert',
         name: 'timeConvert',
-        component: () => import('@/views/code/timeConvert')
+        component: () => import('@/views/code/timeConvert'),
+        meta:{
+            title:'时间戳转换'
+        }
     }
 ]

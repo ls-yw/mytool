@@ -7,13 +7,14 @@ Vue.use(Router)
 import { codeRouter } from './code'
 import {cryptRouter} from "./crypt";
 import {trafficRouter} from "./traffic";
+import {wordRouter} from "@/router/word";
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  *
  * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
+ * alwaysShow: true               if set  true, will always show the root menu
  *                                if not set alwaysShow, when item has more than one children route,
  *                                it will becomes nested mode, otherwise not show the root menu
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
@@ -46,6 +47,7 @@ export const constantRoutes = [
     component: () => import('@/views/404')
   },
   ...codeRouter,
+  ...wordRouter,
   ...cryptRouter,
   ...trafficRouter,
   // 404 page must be placed at the end !!!
