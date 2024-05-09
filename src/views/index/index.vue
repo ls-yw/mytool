@@ -19,6 +19,7 @@
         <div class="menu-name">文字处理:</div>
         <div class="menu-item">
           <router-link to="/word/length" class="item">统计长度</router-link>
+          <router-link to="/word/special" class="item">特殊字符</router-link>
         </div>
       </div>
       <el-divider></el-divider>
@@ -57,6 +58,7 @@ export default {
           .item{
             color: #337ab7;
             cursor: pointer;
+            margin-right: 10px;
           }
         }
       }
