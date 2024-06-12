@@ -190,8 +190,10 @@ export default {
       const processDestination = () => {
         if (index < this.destination.length) {
           const ele = this.destination[index];
-          _this.echartsIdArr.push(ele.code);
-          _this.chartsPlanePrice(ele);
+          let res = _this.chartsPlanePrice(ele);
+          if (res) {
+            _this.echartsIdArr.push(ele.code);
+          }
 
           setTimeout(() => {
             index++;
@@ -228,7 +230,7 @@ export default {
           duration: 0
         });
         console.log('toResult', toResult)
-        return
+        return false
       }
       // setTimeout(async function  (){
         param.dcty = param.acty
@@ -240,9 +242,10 @@ export default {
             duration: 0
           });
           console.log('backResult', backResult)
-          return
+          return false
         }
         _this.drawingCharts(destination, toResult.prices, backResult.prices)
+      return true
       // }, 1000)
     },
     drawingCharts(destination, toResult, backResult){

@@ -29,6 +29,13 @@
           <router-link to="/traffic/plane" class="item">机票查询</router-link>
         </div>
       </div>
+      <el-divider></el-divider>
+      <div class="menu-list">
+        <div class="menu-name">旅行指南:</div>
+        <div class="menu-item">
+          <router-link to="/travel/guideMap" class="item">攻略地图</router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>

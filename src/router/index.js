@@ -8,6 +8,7 @@ import { codeRouter } from './code'
 import {cryptRouter} from "./crypt";
 import {trafficRouter} from "./traffic";
 import {wordRouter} from "@/router/word";
+import {travelRouter} from "@/router/travel";
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -50,6 +51,7 @@ export const constantRoutes = [
   ...wordRouter,
   ...cryptRouter,
   ...trafficRouter,
+  ...travelRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404' }
 ]
