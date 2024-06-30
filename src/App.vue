@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <div class="breadcrumb" v-if="breadcrumb !== ''">
+    <div v-if="breadcrumb !== ''" class="breadcrumb">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>{{breadcrumb}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{ breadcrumb }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <router-view />
@@ -18,7 +18,7 @@ export default {
       const route = this.$route
       const { meta } = route
       return meta.title || ''
-    },
+    }
   },
   mounted() {
   }
