@@ -13,6 +13,7 @@
 
 <script>
 import AMap from '@amap/amap-jsapi-loader'
+import {parseTime} from "@/utils";
 
 export default {
   name: 'Map',
@@ -21,8 +22,21 @@ export default {
       map: null,
       aMap: null,
       mapContextMenu: null,
+      mapContextMenuPosition: null, // 右键菜单位置
       days: [],
-      currentDay: 0
+      markers: {},
+      lines: {},
+      currentDay: 0,
+      tmpMarkers:{},
+      travelMode: 'driving',
+      info:{
+        id: 0,
+        title: '',
+        thumbnail: '',
+        markers: [],
+        lines: [],
+        days: [],
+      }
     }
   },
   created() {
@@ -33,7 +47,7 @@ export default {
       AMap.load({
         key: process.env.VUE_APP_MAP_KEY, // 申请好的Web端开发者Key，首次调用 load 时必填
         version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-        plugins: ['AMap.PolylineEditor', 'AMap.MouseTool'] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+        plugins: ['AMap.PolylineEditor', 'AMap.MouseTool', 'AMap.Driving', 'AMap.Walking', 'AMap.PolylineEditor'] // 需要使用的的插件列表，如比例尺'AMap.Scale'等
       }).then((AMap) => {
         this.aMap = AMap
         this.map = new this.aMap.Map('mapContainer', { // 设置地图容器id
@@ -80,10 +94,17 @@ export default {
     addDay() {
       this.days.push(this.days.length + 1)
       this.currentDay = this.days.length
+      this.tmpMarkers[this.currentDay]={}
     },
     changeDay(index) {
       this.currentDay = index
       // 重新绘制线路和标记点
+    },
+    clearTmpMarkers(day){
+      for(let i in this.tmpMarkers[day]){
+        this.map.remove(this.tmpMarkers[day][i])
+      }
+      this.tmpMarkers[day]={}
     },
     // 创建线路起点
     createLineStart() {
@@ -92,6 +113,8 @@ export default {
         return
       }
       this.createMarker('begin')
+      this.generateLine()
+      this.mapContextMenu.close()
     },
     // 创建线路终点
     createLineEnd() {
@@ -99,6 +122,9 @@ export default {
         this.$message.error('请添加或者选择游玩日')
         return
       }
+      this.createMarker('end')
+      this.generateLine()
+      this.mapContextMenu.close()
     },
     // 创建自定义标记点弹窗
     createMarkerDialog() {
@@ -109,7 +135,73 @@ export default {
     },
     // 创建自定义标记点
     createMarker(m) {
+      if (this.tmpMarkers[this.currentDay] && this.tmpMarkers[this.currentDay][m]) {
+        this.map.remove(this.tmpMarkers[this.currentDay][m])
+      }
+      const marker = new this.aMap.Marker({
+        position: [this.mapContextMenuPosition.lng, this.mapContextMenuPosition.lat],
+        anchor: 'bottom-center',
+        offset: new this.aMap.Pixel(0, 0)
+      })
+      marker.setMap(this.map)
+      marker.setLabel({
+        direction: 'top',
+        offset: new this.aMap.Pixel(0, -5), // 设置文本标注偏移量
+        content: "<div class='info'>" + (m === 'begin' ? '起点' : '终点') + '</div>' // 设置文本标注内容
+      })
+      this.tmpMarkers[this.currentDay][m] = marker
+    },
+    generateLine(){ // 生成线路
+      const startMarker = this.tmpMarkers[this.currentDay]['begin']
+      const endMarker = this.tmpMarkers[this.currentDay]['end']
+      if (!startMarker ||!endMarker) {
+        return
+      }
 
+      const _this = this
+      let mapDriving = null
+      switch (this.travelMode) {
+        case 'walking':
+          mapDriving = new this.aMap.Walking({
+            map: this.map,
+          })
+          break
+        default:
+          mapDriving = new this.aMap.Driving({
+            map: this.map,
+            showTraffic: false,
+          })
+          break
+      }
+      mapDriving.search(new this.aMap.LngLat(startMarker._position[0], startMarker._position[1]), new this.aMap.LngLat(endMarker._position[0], endMarker._position[1]), function(status, result) {
+        // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+        if (status === 'complete') {
+          console.log('绘制驾车路线完成', result)
+          const polyline = []
+          let steps = result.routes[0].steps
+          steps.forEach(ele => {
+            ele.path.forEach(e => {
+              polyline.push({ latitude: e.lat, longitude: e.lng })
+            })
+          })
+          _this.lines[this.currentDay].push(_this.initLineData())
+/*          _this.lineObj.polyline = polyline
+          _this.info.mileage = result.routes[0].distance
+
+          const durationInterval = [parseTime((new Date()) - result.routes[0].time * 1000), parseTime(new Date())]
+          // _this.info.durationInterval[0] = parseTime((new Date()) - result.routes[0].time * 1000)
+          // _this.info.durationInterval[1] = parseTime(new Date())
+          _this.$set(_this.info, 'durationInterval', durationInterval)*/
+        } else {
+          console.log('获取驾车数据失败：', result)
+        }
+      })
+      this.clearTmpMarkers(this.currentDay)
+    },
+    initLineData(){
+      return {
+        polyline: [],
+      }
     }
   }
 }
