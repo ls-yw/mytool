@@ -5,10 +5,11 @@ Vue.use(Router)
 
 /* Layout */
 import { codeRouter } from './code'
-import {cryptRouter} from "./crypt";
-import {trafficRouter} from "./traffic";
-import {wordRouter} from "@/router/word";
-import {travelRouter} from "@/router/travel";
+import { cryptRouter } from './crypt'
+import { trafficRouter } from './traffic'
+import { wordRouter } from '@/router/word'
+import { travelRouter } from '@/router/travel'
+import { otherRouter } from '@/router/other'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -52,6 +53,7 @@ export const constantRoutes = [
   ...cryptRouter,
   ...trafficRouter,
   ...travelRouter,
+  ...otherRouter,
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404' }
 ]

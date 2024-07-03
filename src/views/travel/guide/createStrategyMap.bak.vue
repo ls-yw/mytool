@@ -1,4 +1,4 @@
-<template>
+                            <template>
   <div class="container createStrategyMap content-box">
     <div id="container" :style="'height:'+fullHeight+'px'" />
     <point
