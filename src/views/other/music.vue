@@ -22,7 +22,6 @@
 </template>
 <script>
 import { downMusic, searchMusic } from '@/api/other'
-import axios from 'axios'
 
 export default {
   data() {
@@ -44,51 +43,7 @@ export default {
       })
     },
     downloadSong(index) {
-      this.loading = true
-      downMusic(this.songs[index]).then(async res => {
-        if (res.data === '') {
-          this.$message.error('获取下载链接失败')
-          return
-        }
-        const response = await fetch(res.data)
-        if (response.ok) {
-          const data = await response.json()
-          const link = data.link
-
-          const a = document.createElement('a')
-          a.href = link
-          a.download = 'edia_file.mp4' // 自定义文件名
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-        }
-        /*        try {
-          const response = await axios.get(res.data, {
-            responseType: 'blob', // 设置响应类型为 blob
-            headers: {
-              'referer': 'https://www.hifini.com'
-            }
-          })
-
-          // 创建一个下载链接
-          const link = document.createElement('a')
-          const url = window.URL.createObjectURL(new Blob([response.data]))
-          link.href = url
-          link.setAttribute('download', this.songs[index].name) // 设置下载文件名
-
-          // 触发下载
-          document.body.appendChild(link)
-          link.click()
-
-          // 清理下载链接
-          document.body.removeChild(link)
-          window.URL.revokeObjectURL(url)
-        } catch (error) {
-          console.error('Error downloading the file:', error)
-        }*/
-      }).finally(() => {
-        this.loading = false
-      })
+      window.open(downMusic(this.songs[index]), '_blank')
     }
   }
 }
@@ -107,6 +62,7 @@ export default {
     width: 90%;
     margin-top: 20px;
     font-size: 12px;
+    padding-bottom: 50px;
     .song{
       display: flex;
       flex-wrap: wrap;
@@ -116,6 +72,9 @@ export default {
       .song-name{
         color: #1482f0;
       }
+    }
+    .song:last-child {
+      border-bottom: none;
     }
   }
 }

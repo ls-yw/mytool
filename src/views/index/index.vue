@@ -38,7 +38,7 @@
       </div>
       <el-divider />
       <div class="menu-list">
-        <div class="menu-name">不知归哪:</div>
+        <div class="menu-name">不知归处:</div>
         <div class="menu-item">
           <router-link to="/other/music" class="item">音乐下载</router-link>
         </div>
