@@ -1,4 +1,4 @@
-                            <template>
+<template>
   <div class="container createStrategyMap content-box">
     <div id="container" :style="'height:'+fullHeight+'px'" />
     <point
@@ -39,11 +39,12 @@
       custom-class="dialogClickEditLineMenu"
       width="200px"
       :show-close="false"
-
       center
     >
       <div class="menu-list">
-        <el-button type="primary" @click="dialogClickEditLineMenu=false;dialogEditLine=true;editLineObj=dbClickLineObj">修改线路信息</el-button>
+        <el-button type="primary" @click="dialogClickEditLineMenu=false;dialogEditLine=true;editLineObj=dbClickLineObj">
+          修改线路信息
+        </el-button>
         <el-button type="primary" @click="editLineTrackMenu">修改线路轨迹</el-button>
         <el-button type="primary" @click="delLineMenu">删除线路</el-button>
       </div>
@@ -380,106 +381,112 @@ export default {
 
 <style scoped lang="scss">
 .content-box {
-#container {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
+  #container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
 
-.line-box {
-  display: inline-grid;
-  position: absolute;
-  top: 800px;
-  right: 80px;
-  background: #ffffff;
-  padding: 5px 0;
-  width: 56px;
-  text-align: center;
-  border-radius: 5px;
-  cursor: pointer;
+  .line-box {
+    display: inline-grid;
+    position: absolute;
+    top: 800px;
+    right: 80px;
+    background: #ffffff;
+    padding: 5px 0;
+    width: 56px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
 
-img {
-  width: 30px;
-}
+    img {
+      width: 30px;
+    }
 
-span {
-  font-size: 14px;
-  font-weight: bold;
-}
-}
+    span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
 
-.line-table-box {
-  position: absolute;
-  top: 100px;
-  width: 600px;
-  left: 20px;
-  background: #FFFFFF;
-  padding: 10px;
-  max-height: 200px;
+  .line-table-box {
+    position: absolute;
+    top: 100px;
+    width: 600px;
+    left: 20px;
+    background: #FFFFFF;
+    padding: 10px;
+    max-height: 200px;
 
-.line-table-box-header {
-  text-align: right;
-  margin-bottom: 10px;
-}
-}
+    .line-table-box-header {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+  }
 
-.dialogClickEditLineMenu.el-dialog {
-.el-dialog__header {
-  display: none;
-}
-.dj-dialog-content {
-  padding: 0;
-  overflow: unset;
-}
-}
+  .dialogClickEditLineMenu.el-dialog {
+    .el-dialog__header {
+      display: none;
+    }
 
-.dialogClickEditLineMenu {
-.menu-list{
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content:center;
-button{
-  margin-bottom: 10px;
-  width: 150px;
-  flex: 1;
-}
-.el-button+.el-button{
-  margin-left: 0;
-}
-}
-}
-.editLineReminderBox{
-  position: absolute;
-  top: 50px;
-  left: calc(50% - 450px/2);
-  width: 450px;
-p{
-  display: inline-block;
-  margin: 0 10px 0 0;
-  color: orange;
-}
-.tips{
-  line-height: 20px;
-  font-size: 12px;
-  text-align: center;
-  color: #666666;
-  margin-bottom: -10px;
-  margin-top: 5px;
-}
-}
+    .dj-dialog-content {
+      padding: 0;
+      overflow: unset;
+    }
+  }
+
+  .dialogClickEditLineMenu {
+    .menu-list {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      button {
+        margin-bottom: 10px;
+        width: 150px;
+        flex: 1;
+      }
+
+      .el-button + .el-button {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .editLineReminderBox {
+    position: absolute;
+    top: 50px;
+    left: calc(50% - 450px / 2);
+    width: 450px;
+
+    p {
+      display: inline-block;
+      margin: 0 10px 0 0;
+      color: orange;
+    }
+
+    .tips {
+      line-height: 20px;
+      font-size: 12px;
+      text-align: center;
+      color: #666666;
+      margin-bottom: -10px;
+      margin-top: 5px;
+    }
+  }
 }
 
 </style>
-  <style>
-  .content-window-card {
-    position: relative;
-    box-shadow: none;
-    bottom: 0;
-    left: 0;
-    width: auto;
-    padding: 0;
-  }
+<style>
+.content-window-card {
+  position: relative;
+  box-shadow: none;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  padding: 0;
+}
 
 .content-window-card p {
   height: 2rem;
@@ -572,17 +579,20 @@ div.info-bottom img {
 .right-click-menu p:hover {
   background: #bbbbbb;
 }
-.amap-marker-label{
+
+.amap-marker-label {
   border: none;
   background: transparent;
 }
-.amap-marker-label .info{
+
+.amap-marker-label .info {
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 4px 0px;
   padding: 10px;
   background: #FFFFFF;
   border-radius: 6px;
 }
-.amap-marker-label .jt{
+
+.amap-marker-label .jt {
   width: 10px;
   height: 10px;
   background-color: white;

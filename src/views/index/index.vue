@@ -33,7 +33,7 @@
       <div class="menu-list">
         <div class="menu-name">旅行指南:</div>
         <div class="menu-item">
-          <router-link to="/travel/guideMap" class="item">攻略地图</router-link>
+          <router-link to="/travel/guideMap?id=1" class="item">攻略地图</router-link>
         </div>
       </div>
       <el-divider />
