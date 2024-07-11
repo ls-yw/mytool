@@ -260,7 +260,7 @@ export default {
     getGuideInfo() {
       getGuideInfo({ id: this.$route.query.id }).then(response => {
         this.info = response.data
-        this.days = this.info.days.sort((a, b) => a - b)
+        this.days = Array.from(new Set(this.info.days)).sort((a, b) => a - b)
         this.initOnlineLines()
         this.initOnlineMarkers()
         if (this.days.length > 0) {
@@ -268,7 +268,7 @@ export default {
             this.tmpMarkers[ele] = {}
           })
         }
-        this.currentDay = 0
+        this.changeDay(0)
       })
     },
     /** ************* 点位方法开始 *******************/
@@ -363,12 +363,14 @@ export default {
       for (const key in this.markersMap) {
         this.map.remove(this.markersMap[key])
       }
+      this.markersMap = {}
     },
     initOnlineMarkers() {
       this.info.markers.forEach(marker => {
         if (!this.markers[marker.day]) {
           this.markers[marker.day] = []
         }
+        marker.uniqueId = randomWord(10)
         this.markers[marker.day].push(marker)
       })
       this.updateAllMarkers()
@@ -547,12 +549,14 @@ export default {
       for (const key in this.linesMap) {
         this.map.remove(this.linesMap[key])
       }
+      this.linesMap = {}
     },
     initOnlineLines() {
       this.info.lines.forEach(line => {
         if (!this.lines[line.day]) {
           this.lines[line.day] = []
         }
+        line.uniqueId = randomWord(10)
         this.lines[line.day].push(line)
       })
       this.updateAllLines()
@@ -563,8 +567,9 @@ export default {
     },
     onsubmit() {
       this.loading = true
-      saveGuide({ days: this.days, markers: this.markers, lines: this.lines, id: this.$route.query.id }).then(response => {
-
+      saveGuide({ days: this.days, markers: this.allMarkers, lines: this.allLines, id: parseInt(this.$route.query.id) }).then(response => {
+        this.$message.success('保存成功')
+        this.goBack()
       }).finally(() => {
         this.loading = false
       })
