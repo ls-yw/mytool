@@ -35,7 +35,6 @@
     </el-card>
     <el-dialog
       :visible.sync="dialogEditMarker"
-      custom-class="dialogClickEditLineMenu"
       width="800px"
       :show-close="false"
       center
@@ -213,7 +212,7 @@ export default {
       }).then(() => {
         const day = this.days[index]
         this.days.splice(index, 1)
-        this.tmpMarkers.splice(index, 1)
+        delete this.tmpMarkers[index]
         if ((index + 1) === this.currentDay) {
           this.changeDay(0)
         }
@@ -269,6 +268,8 @@ export default {
           })
         }
         this.changeDay(0)
+
+        this.map.setFitView()
       })
     },
     /** ************* 点位方法开始 *******************/
@@ -353,7 +354,7 @@ export default {
     deleteMarker() {
       this.$confirm('确定删除该标记点?', '提示', { type: 'warning' }).then(() => {
         this.map.remove(this.markersMap[this.currentMarker.uniqueId])
-        this.markers[this.currentDay] = this.markers[this.currentDay].filter(ele => ele.uniqueId !== this.currentMarker.uniqueId)
+        this.markers[this.currentMarker.day] = this.markers[this.currentMarker.day].filter(ele => ele.uniqueId !== this.currentMarker.uniqueId)
         this.updateAllMarkers()
         this.dialogEditMarker = false
         this.$message.success('删除成功')
@@ -534,7 +535,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.map.remove(this.linesMap[this.dbClickLineObj.uniqueId])
-        this.lines[this.currentDay] = this.lines[this.currentDay].filter(ele => ele.uniqueId !== this.dbClickLineObj.uniqueId)
+        this.lines[this.dbClickLineObj.day] = this.lines[this.dbClickLineObj.day].filter(ele => ele.uniqueId !== this.dbClickLineObj.uniqueId)
         this.updateAllLines()
         this.$message.success('删除成功')
         this.dialogClickEditLineMenu = false
@@ -567,7 +568,7 @@ export default {
     },
     onsubmit() {
       this.loading = true
-      saveGuide({ days: this.days, markers: this.allMarkers, lines: this.allLines, id: parseInt(this.$route.query.id) }).then(response => {
+      saveGuide({ days: this.days, markers: this.allMarkers, lines: this.allLines, id: parseInt(this.$route.query.id), title: this.info.title }).then(response => {
         this.$message.success('保存成功')
         this.goBack()
       }).finally(() => {
